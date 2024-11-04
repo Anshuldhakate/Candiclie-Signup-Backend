@@ -15,6 +15,13 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ message: 'Passwords do not match.' });
     }
 
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      return res.status(400).json({ 
+        message: 'Password must be at least 8 characters long and include at least one number, one uppercase letter, one lowercase letter, and one special character.' 
+      });
+    }
+
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists' });
