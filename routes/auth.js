@@ -60,4 +60,33 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.post('/google-login', async (req, res) => {
+  const { name, email, profilePicture } = req.body;
+
+  try {
+    // Check if user already exists
+    let user = await User.findOne({ email });
+
+    if (!user) {
+      // If user doesn't exist, create a new user
+      user = new User({
+        firstName: name.split(' ')[0],
+        lastName: name.split(' ')[1] || '',
+        email,
+        phone: '', 
+        profilePicture,
+        purpose: 'Google Login', 
+        password: '', 
+      });
+
+      await user.save();
+    }
+
+    res.status(200).json({ message: 'Google login successful', user });
+  } catch (error) {
+    console.error('Error in Google login:', error);
+    res.status(500).json({ message: 'Server error during Google login', error });
+  }
+});
+
 module.exports = router;
