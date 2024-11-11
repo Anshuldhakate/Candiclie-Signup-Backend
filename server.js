@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/auth');
-require('dotenv').config(); // Load environment variables from .env
+require('dotenv').config(); 
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://anshulcandiclie:dbCandiclie@cluster0.uh1t6.mongodb.net/candiclieUser?retryWrites=true&w=majority&appName=Cluster0'; 
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://anshulcandiclie:dbCandiclie@cluster0.uh1t6.mongodb.net/userCandiclie?retryWrites=true&w=majority'; 
 
 // Connect to MongoDB
 mongoose

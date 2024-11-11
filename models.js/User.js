@@ -4,10 +4,10 @@ const bcrypt = require('bcryptjs');
 const userSchema = new mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-  phone: { type: String, unique: true, sparse: true }, // Sparse allows multiple empty fields
+  phone: { type: String, unique: true, sparse: true }, 
   email: { type: String, required: true, unique: true },
-  password: { type: String }, // Optional for Google users
-  profilePicture: { type: String }, // Store profile picture URL for Google users
+  password: { type: String }, 
+  profilePicture: { type: String }, 
   purpose: { type: String, required: true },
   location: { type: String },
   comments: { type: String },
