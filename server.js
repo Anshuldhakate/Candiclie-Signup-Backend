@@ -7,7 +7,7 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://anshulcandiclie:dbCandiclie@cluster0.uh1t6.mongodb.net/userCandiclie?retryWrites=true&w=majority'; 
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://anshulcandiclie:dbCandiclie@cluster0.uh1t6.mongodb.net/userCandiclie?retryWrites=true&w=majority&appName=Cluster0'; 
 
 // Connect to MongoDB
 mongoose
