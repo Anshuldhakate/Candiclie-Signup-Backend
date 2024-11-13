@@ -21,7 +21,9 @@ const allowedOrigins = ['http://localhost:3000', 'https://peaceful-puffpuff-b97f
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || process.env.NODE_ENV === 'development' || allowedOrigins.includes(origin)) {
+    if (!origin || 
+        origin.endsWith('.github.dev') || 
+        allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
