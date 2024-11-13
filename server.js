@@ -16,19 +16,17 @@ mongoose
   .catch((err) => console.error('MongoDB connection error:', err));
 
 // Configure CORS to allow specific origins
-const allowedOrigins = ['http://localhost:3000', 'https://peaceful-puffpuff-b97f20.netlify.app', 'https://friendly-space-eureka-jjqjggv5j7752pjgq-3000.app.github.dev']; 
+const allowedOrigins = ['http://localhost:3000', 'https://peaceful-puffpuff-b97f20.netlify.app'];
 
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin || process.env.NODE_ENV === 'development' || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      console.error(`Blocked by CORS: ${origin}`);
       callback(new Error('Not allowed by CORS'));
     }
   },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 }));
 
