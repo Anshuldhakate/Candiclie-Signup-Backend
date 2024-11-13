@@ -7,7 +7,7 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://anshulcandiclie:dbCandiclie@cluster0.uh1t6.mongodb.net/userCandiclie?retryWrites=true&w=majority&appName=Cluster0'; 
+const MONGODB_URI = process.env.MONGODB_URI; 
 
 // Connect to MongoDB
 mongoose
@@ -17,11 +17,21 @@ mongoose
 
 // Configure CORS to allow specific origins
 const allowedOrigins = ['http://localhost:3000', 'https://peaceful-puffpuff-b97f20.netlify.app']; 
+
+
 app.use(cors({
-  origin: allowedOrigins,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      console.error(`Blocked by CORS: ${origin}`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true, 
+  credentials: true,
 }));
+
 
 // Middleware
 app.use(bodyParser.json());
@@ -29,6 +39,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
 app.use('/api/auth', authRoutes);
+
+
+// 404 Error Handling Middleware
+app.use((req, res, next) => {
+  res.status(404).json({ message: 'Resource not found' });
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {
